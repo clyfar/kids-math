@@ -147,21 +147,7 @@ KidsMathDom.prototype.cleanProblemNode = function(node) {
   }
 };
 
-KidsMathDom.prototype.showSingleProblemNode = function(set, opt_exp) {
-  console.log(this.currentProblem);
-  console.log(Math.max.apply(Math, this.nums));
-  if (this.currentProblem == set.length) {
-    var maxSet = Math.max.apply(Math, this.nums);
-    if ((this.baseSetNum + 1) >= maxSet) {
-      alert("All Done!!");
-      return;
-    } else {
-      this.baseSetNum += 1;
-      set = this.createProblemSet(this.baseSetNum);
-      this.buildProblemSetDom(set, true);
-      this.currentProblem = 0;
-    }
-  }
+KidsMathDom.prototype.cleanAndBuildProblemNode = function(set, opt_exp) {
   var problemNode = document.getElementById("problem");
   this.cleanProblemNode(problemNode);
   var problemInput = document.createElement("input");
@@ -183,6 +169,24 @@ KidsMathDom.prototype.showSingleProblemNode = function(set, opt_exp) {
   answer.focus();
 };
 
+KidsMathDom.prototype.showSingleProblemNode = function(set, opt_exp) {
+  console.log(this.currentProblem);
+  console.log(Math.max.apply(Math, this.nums));
+  if (this.currentProblem == set.length) {
+    var maxSet = Math.max.apply(Math, this.nums);
+    if ((this.baseSetNum + 1) >= maxSet) {
+      alert("All Done!!");
+      return;
+    } else {
+      this.baseSetNum += 1;
+      set = this.createProblemSet(this.baseSetNum);
+      this.buildProblemSetDom(set, true);
+      this.currentProblem = 0;
+    }
+  }
+  this.cleanAndBuildProblemNode(set, opt_exp);
+};
+
 KidsMathDom.prototype.buildSubmitAnswerButton = function() {
   var button = document.createElement("div");
   var buttonContainer = document.getElementById("navs");
@@ -195,6 +199,7 @@ KidsMathDom.prototype.buildSubmitAnswerButton = function() {
   answerInput.setAttribute("onkeypress", "km.checkKeyCode(event)");
 };
 
+// bug in this function.
 KidsMathDom.prototype.updateScore = function() {
   var baseNode = document.getElementById("score");
   var more = this.currentSet.length - this.problemAnswers.correct;
@@ -202,7 +207,7 @@ KidsMathDom.prototype.updateScore = function() {
   var percentage = (this.problemAnswers.correct / totalAnswers) * 100;
   var stepMult = this.problemAnswers.correct / totalAnswers;
   this.baseReward = this.baseReward * stepMult;
-  baseNode.innerHTML = this.problemAnswers.correct + " correct so far!"; // " + more + " more to go!";
+  baseNode.innerHTML = this.problemAnswers.correct + " correct so far!";
   baseNode.innerHTML += "<br /> Correct percentage: " + percentage.toFixed(2) + "%";
   baseNode.innerHTML += "<br /><br /> Reward so far: $" + this.baseReward.toFixed(2);
 };
