@@ -17,8 +17,8 @@ var KidsMathProblemWorker = function() {
 
 KidsMathProblemWorker.prototype = new KidsMathAbstract();
 KidsMathProblemWorker.prototype.baseSetNum = undefined;
-KidsMathProblemWorker.prototype.nums = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-KidsMathProblemWorker.prototype.baseMults = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+KidsMathProblemWorker.prototype.nums = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+KidsMathProblemWorker.prototype.baseMults = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 KidsMathProblemWorker.prototype.problemAnswers = {
   pid: 0,
